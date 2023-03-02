@@ -21,6 +21,7 @@ export function HomePage() {
                 const { data } = await api.get('/users');
                 setUsers(data);
             } catch (error) {
+                //TODO
                 if (error?.response?.status === 401) {
                     signOut();
                 }

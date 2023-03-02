@@ -1,20 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from "../../hooks/auth";
 import {Header} from "../../components/Header";
-import {api} from "../../services/api";
-
 
 export function Profile() {
     const [isEditing, setIsEditing] = useState(false);
-
     const { user, updateProfile } = useAuth();
-
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
-
-    const handleEditCancel = () => {
-        setIsEditing(false);
-    }
 
     const handleSaveClick = async () => {
         const updated = {
@@ -60,7 +52,7 @@ export function Profile() {
                                 type="email"
                                 id="email"
                                 name="email"
-                                value={email || ''}
+                                value={email}
                                 onChange={e => setEmail(e.target.value)}
                                 className="w-full border border-gray-300 p-2 rounded-md"
                             />
@@ -71,10 +63,10 @@ export function Profile() {
                     {isEditing ? (
                         <div className="flex justify-between">
                             <button onClick={handleSaveClick} className="bg-blue-500 text-white px-4 py-2 rounded-md">Save</button>
-                            <button onClick={handleEditCancel} className="bg-red-500 text-white px-4 py-2 rounded-md">Cancel</button>
+                            <button onClick={() => setIsEditing(false)} className="bg-red-500 text-white px-4 py-2 rounded-md">Cancel</button>
                         </div>
                     ) : (
-                        <button onClick={setIsEditing} className="bg-blue-500 text-white px-4 py-2 rounded-md">Edit</button>
+                        <button onClick={() => setIsEditing(true)} className="bg-blue-500 text-white px-4 py-2 rounded-md">Edit</button>
                     )}
                 </div>
             </div>
