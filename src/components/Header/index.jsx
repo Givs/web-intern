@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 
 
@@ -30,6 +30,12 @@ export function Header(){
                             className="block mt-4 lg:inline-block lg:mt-0 mr-10 hover:text-gray-900"
                         >
                             Home
+                        </Link>
+                        <Link
+                            to="/"
+                            className="block mt-4 lg:inline-block lg:mt-0 mr-10 hover:text-gray-900"
+                        >
+                            Reset Password
                         </Link>
                     </div>
                 </div>
