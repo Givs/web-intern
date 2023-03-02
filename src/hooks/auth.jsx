@@ -9,10 +9,8 @@ function AuthProvider({ children }) {
     async function signIn({ email, password }) {
         try {
             const response = await api.post('/sessions', { email, password });
-            console.log(response.data)
             const { user, token } = response.data;
 
-            console.log(user, token)
             localStorage.setItem("@webintern:user", JSON.stringify(user));
             localStorage.setItem("@webintern:token", token);
 
@@ -52,7 +50,6 @@ function AuthProvider({ children }) {
 
     async function updateProfile({ user }) {
         try {
-            console.log(user)
             await api.put(`/users/update/${user.id}`, { name: user.name, email: user.email });
             localStorage.setItem("@webintern:user", JSON.stringify(user));
             setData({

@@ -1,32 +1,46 @@
 import { useState, useEffect } from 'react';
-
 import { Header } from "../../components/Header";
 import { useAuth } from "../../hooks/auth";
 import { Link } from "react-router-dom";
 import { api } from "../../services/api";
 
+import { UsersTable } from '../../components/UsersTable';
+
+//on database admin users are represents with 1 and no admin users with 0
+const ADMIN_USER = 1;
+
 export function HomePage() {
 
-    //on database admin users are represents with 1 and no admin users with 0
-    const admin = 1;
-
+    const { signOut, user } = useAuth();
     const [users, setUsers] = useState([]);
-    const { user } = useAuth();
+
 
     useEffect( () => {
         async function fetchUsers(){
-            const response = await api.get('/users');
-            setUsers(response.data);
+            try {
+                const { data } = await api.get('/users');
+                setUsers(data);
+            } catch (error) {
+                //TODO
+                if (error?.response?.status === 401) {
+                    signOut();
+                }
+            }
         }
 
         fetchUsers()
     }, []);
 
-    const handleDeleteUser = (id) => {
-
+    const handleDeleteUser = async userId => {
+        try {
+            await api.delete(`/users/${userId}`);
+            setUsers(users.filter((user) => user.id !== userId));
+        } catch (error) {
+            console.log('Failed to delete user: ', error);
+        }
     }
 
-    const isAdmin = user?.isAdmin === admin;
+    const isAdmin = user?.isAdmin === ADMIN_USER;
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -47,62 +61,13 @@ export function HomePage() {
                             </Link>
                         </div>
                     )}
-                    <div className="flex flex-col">
-                        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                                    <table className="min-w-full divide-y divide-gray-200">
-                                        <thead className="bg-gray-50">
-                                        <tr>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                            >
-                                                Name
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                            >
-                                                Email
-                                            </th>
-                                            {isAdmin && (
-                                                <th
-                                                    scope="col"
-                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                                >
-                                                    Actions
-                                                </th>
-                                            )}
-                                        </tr>
-                                        </thead>
-                                        <tbody className="bg-white divide-y divide-gray-200">
-                                        {users.map((user) => (
-                                            <tr key={user.id}>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                    {user.name}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {user.email}
-                                                </td>
-                                                {isAdmin && (
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        <button
-                                                            className="text-red-500"
-                                                            onClick={() => handleDeleteUser(user.id)}
-                                                        >
-                                                            Delete
-                                                        </button>
-                                                    </td>
-                                                )}
-                                            </tr>
-                                        ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   <div className="mt-4">
+                       <UsersTable
+                        users={users}
+                        isAdmin={isAdmin}
+                        onDelete={handleDeleteUser}
+                       />
+                   </div>
                 </div>
             </main>
         </div>
