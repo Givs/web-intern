@@ -9,7 +9,7 @@ import { ModalMessage } from "../../components/ModalMessage";
 import { MainButton } from "../../components/MainButton";
 import { ForgotPasswordModal } from '../../components/ForgotPasswordModal';
 import { InputPassword } from '../../components/InputPassword';
-
+import { MainInput } from "../../components/MainInput";
 
 
 export function LoginPage() {
@@ -58,7 +58,7 @@ export function LoginPage() {
                                                         <label htmlFor="username" className="sr-only">
                                                             Username
                                                         </label>
-                                                        <input
+                                                        <MainInput
                                                             id="username"
                                                             name="username"
                                                             type="text"
