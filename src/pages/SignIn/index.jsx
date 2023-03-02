@@ -2,6 +2,7 @@ import { useState } from 'react';
 import  '../../index.css';
 
 import { ForgotPasswordModal } from '../../components/ForgotPasswordModal';
+import { InputPassword } from '../../components/InputPassword';
 import { useAuth } from "../../hooks/auth";
 
 
@@ -54,19 +55,12 @@ export function LoginPage() {
                             />
                         </div>
                         <div>
-                            <label htmlFor="password" className="sr-only">
+                            <label className="sr-only">
                                 Password
                             </label>
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                autoComplete="current-password"
-                                required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                placeholder="Password"
-                                value={password}
+                            <InputPassword
                                 onChange={(e) => setPassword(e.target.value)}
+                                value={password}
                             />
                         </div>
                     </div>
@@ -95,21 +89,6 @@ export function LoginPage() {
                             type="submit"
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
-                            <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                                <svg
-                                    className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M5.293 8.293a1 1 0 011.414 0L10 11.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                          </span>
                             Sign in
                         </button>
                     </div>
