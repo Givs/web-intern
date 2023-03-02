@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import '../../index.css'
 
-import { ForgotPasswordModal } from '../../components/ForgotPasswordModal';
-import { InputPassword } from '../../components/InputPassword';
+
 import { useAuth } from "../../hooks/auth";
+
+
 import { ModalMessage } from "../../components/ModalMessage";
 import { MainButton } from "../../components/MainButton";
+import { ForgotPasswordModal } from '../../components/ForgotPasswordModal';
+import { InputPassword } from '../../components/InputPassword';
 
 
 

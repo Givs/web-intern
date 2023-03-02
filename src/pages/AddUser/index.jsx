@@ -4,6 +4,7 @@ import { api } from '../../services/api';
 import { Header } from "../../components/Header";
 import { InputPassword } from "../../components/InputPassword";
 import { MainButton } from "../../components/MainButton";
+import { MainInput } from '../../components/MainInput';
 
 export function AddUserPage(){
     const [name, setName] = useState('');
@@ -20,10 +21,7 @@ export function AddUserPage(){
                 password,
                 isAdmin
             });
-            setName('');
-            setEmail('');
-            setPassword('');
-            setIsAdmin(false);
+            window.location.href = '/';
         } catch (error) {
             console.log(error);
         }
@@ -44,7 +42,7 @@ export function AddUserPage(){
                                     Name
                                 </label>
                                 <div className="mt-1">
-                                    <input
+                                    <MainInput
                                         id="name"
                                         name="name"
                                         type="text"
@@ -52,7 +50,6 @@ export function AddUserPage(){
                                         onChange={(event) => setName(event.target.value)}
                                         autoComplete="name"
                                         required
-                                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                     />
                                 </div>
                             </div>
@@ -61,7 +58,7 @@ export function AddUserPage(){
                                     Email
                                 </label>
                                 <div className="mt-1">
-                                    <input
+                                    <MainInput
                                         id="email"
                                         name="email"
                                         type="email"
@@ -69,7 +66,6 @@ export function AddUserPage(){
                                         onChange={(event) => setEmail(event.target.value)}
                                         autoComplete="email"
                                         required
-                                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                     />
                                 </div>
                             </div>
